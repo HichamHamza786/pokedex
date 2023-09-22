@@ -20,7 +20,7 @@ class MainController
     }    
 
     // Displaying the pokemon details
-    public function details($pokemonId)
+    public function details($params)
     {
         // Get the pokemon
         $pokemonObject = new Pokemon();
@@ -37,7 +37,6 @@ class MainController
     // Displaying the type list
     public function types()
     {
-        // Get all the types
         $typeObject = new Type();
         $types = $typeObject->findAll();
 
@@ -50,9 +49,8 @@ class MainController
     // Displaying the pokemon list by type
     public function type($params)
     {
-        // Get the type
-        $typeObject = new Type();
-        $pokemons = $pokemonObject->find($params['type']);
+        $pokemonObject = new Pokemon();
+        $pokemons = $pokemonObject->findByType($params['type']);
 
         $this->show('list', [
             'title' => 'Filtre par type ',
