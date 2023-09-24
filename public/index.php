@@ -12,3 +12,13 @@ $router->map('GET', '/type/[i:type]', 'MainController#type', 'type');
 
 $match = $router->match();
 
+if ($match !== false) {
+    $controllerAndMethod = explode('#', $match['target']);
+    $controllerName = 'Pokedex\\Controllers\\' . $controllerAndMethod[0];
+    $methodName = $controllerAndMethod[1];
+    $controller = new $controllerName();
+    $controller->$methodName($match['params']);
+} else {
+    $controller = new Pokedex\Controllers\MainController();
+    $controler->notFound();
+}
